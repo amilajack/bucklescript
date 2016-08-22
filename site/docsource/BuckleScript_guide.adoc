@@ -40,7 +40,7 @@ Another important factor is that the JavaScript VM is quite fast and
 keeps getting faster.  The JavaScript platform is therefore
 increasingly capable of supporting large applications.
 
-### Problems of JavaScript langauge and how BuckleScript solves it
+### Problems of JavaScript language and how BuckleScript solves it
 
 BuckleScript is mainly designed to solve the problems of *large scale JavaScript programming*:
 
@@ -63,7 +63,7 @@ BuckleScript is mainly designed to solve the problems of *large scale JavaScript
       sophistication of the type-system of OCaml and
       purity analysis.
       - At the global level BuckleScript generates code ready for
-      dead-code elimination done by bundling tools such as the 
+      dead-code elimination done by bundling tools such as the
       {closure}[Google closure-compiler].
 
 .  Lack of offline optimizations: JavaScript is a dynamic language, it
@@ -81,16 +81,16 @@ BuckleScript is mainly designed to solve the problems of *large scale JavaScript
   mean we have to run all apps in JS, under several platforms, for
   example, server side or iOS/Android native apps, when programs are
   written in OCaml, it can also be compiled to native code for *best
-  performance*. 
+  performance*.
 
 While a strong type-system helps in countering these problems, at the
 same time we hope to avoid some of the problems faced in using other
 offline {transpile-list}[transpilation systems]:
 
-* Slow compilation: OCaml bytecode compilation is known to be fast
-  (one or two orders of magnitude faster than other similar langauges:
+* Slow compilation: OCaml byte-code compilation is known to be fast
+  (one or two orders of magnitude faster than other similar languages:
 http://www.scala-lang.org/[Scala] or
-  https://www.haskell.org/[Haskell]), 
+  https://www.haskell.org/[Haskell]),
   BuckleScript shares the same property and compiles even faster
   since it saves the link time. See the speeds at work in the
   {BuckleScript-playground}[playground], the native backend is one
@@ -98,12 +98,12 @@ http://www.scala-lang.org/[Scala] or
 
 * Un-readable JS Code and hard to integrate with existing JS
   libraries: When compiling to JavaScript, many systems
-  generate code, that while syntactically and semantically correct is 
+  generate code, that while syntactically and semantically correct is
   not human-readable and very difficult to debug and profile.
   Our BuckleScript implementation and the multi-pass compilation  strategy of OCaml,
-  allows us to avoid {name-mangling}[name-mangling], 
+  allows us to avoid {name-mangling}[name-mangling],
   and produce JavaScript code that is human-readable and easier to debug and
-  maintain. More importantly, this makes intergration with existing JS
+  maintain. More importantly, this makes integration with existing JS
   libraries much easier.
 
 * Loss of code-structure: Many systems generate JavaScript code that is essentially a
@@ -125,7 +125,7 @@ https://docs.npmjs.com/getting-started/installing-node[here]. Once npm
 is installed, run the following command:
 
 [source,sh]
------------------------------- 
+------------------------------
 npm install --save bs-platform
 ------------------------------
 
@@ -159,7 +159,7 @@ easily be done.
 
 
 [source,sh]
--------------------------------------------------------- 
+--------------------------------------------------------
 git clone --recursive https://github.com/bloomberg/bucklescript
 cd ocaml
 ./configure -prefix `pwd` # put your preferred directory
@@ -167,7 +167,7 @@ make world.opt
 make install
 --------------------------------------------------------
 
-The patched compiler is installed locally into your `$(pwd)/bin` 
+The patched compiler is installed locally into your `$(pwd)/bin`
 directory. To start using it temporarily, check if `ocamlc.opt` and
 `ocamlopt.opt` exist in `$(pwd)/bin`, and temporarily add the location
 to your `$(PATH)` (e.g.  `PATH=$(pwd)/bin:$PATH`).
@@ -180,7 +180,7 @@ The following directions assume you already have the correct version of
 the previous section.
 
 [source,sh]
------------ 
+-----------
 export BS_RELEASE_BUILD=1
 make world
 -----------
@@ -188,8 +188,8 @@ make world
 '''''
 
 At the end, you should have a binary called `bsc` under `jscomp/bin`
-directory, which you can add to your `$PATH`. 
-You could also set an environment variable 
+directory, which you can add to your `$PATH`.
+You could also set an environment variable
 pointing to the stdlib, e.g. `BSC_LIB=/path/to/jscomp/stdlib` for ease
 of use.
 
@@ -205,7 +205,7 @@ Once you have `opam` installed, ask `opam` to switch to using our
 version of the compiler:
 
 [source,sh]
---------------------------- 
+---------------------------
 opam update
 opam switch 4.02.3
 eval `opam config env`
