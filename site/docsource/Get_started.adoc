@@ -1,0 +1,31 @@
+## Get Started
+
+### `Hello world` example
+
+* Create a directory called `hello`
+* Create `package.json` as below:
+
+[source,json,indent=2]    
+----
+ {
+   "x" : 3 <1>
+ }
+----
+
+* Build the app
+
+
+.An Example Sidebar
+************************************************
+Any AsciiDoc SectionBody element (apart from
+SidebarBlocks) can be placed inside a sidebar.
+************************************************
+
+[TIP]
+=================
+=================
+
+
+### First example in BuckleScript
+Also see link:./Create-a-simple-example-with-NPM.adoc[Create a simple
+example with npm]
