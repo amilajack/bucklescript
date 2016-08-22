@@ -35,40 +35,38 @@ include::./Installation.adoc[]
 
 include::./Get_started.adoc[]
 
-include::./README.adoc[]
-
 include::./Integration_with_reason.adoc[]
 
 include::./NPM-Support.adoc[]
 
-## BuckleScript Basics
-include::./FAQ.adoc[FAQ]
-
-include::./Compiler-options.adoc[Compiler options]
-
-include::./How-to-adapt-your-build-system.adoc[How to adapt your build
-system]
-
-include::./Semantic-differences-from-other-backends.adoc[Semantic
-differences from other backends]
-
-include::./JavaScript-target-versions.adoc[JavaScript target versions]
-
-* BuckleScript Overview
-include::./Compiler-overview.adoc[Compiler overview]
-* BuckleScript FFI
 include::./JS-call-OCaml.adoc[JS calling OCaml]
 
 include::./OCaml-call-JS.adoc[OCaml calling JS]
 
-include::./Runtime-representation.adoc[Runtime representation]
-include::./Experimental-support-of-typescript.adoc[Experimental support of
-typescript]
-include::./Unsupported-IO-primitives.adoc[Unsupported IO primitives]
+include::./How-to-adapt-your-build-system.adoc[]
+
+include::./FAQ.adoc[FAQ]
+
+include::./Compiler-options.adoc[Compiler options]
+
+include::./Semantic-differences-from-other-backends.adoc[]
+
+
+
+
+include::./Compiler-overview.adoc[]
+
+include::./Runtime-representation.adoc[]
+
+include::./Experimental-support-of-typescript.adoc[]
+
+include::./Unsupported-IO-primitives.adoc[]
+
 * Contributions
 include::./Dev-mode-How-to.adoc[Dev mode How to]
 include::./Help-move-runtime-functions-from-OCaml-to-Javascript.adoc[Help
 move runtime functions from OCaml to Javascript]
+
 * Roadmap
 include::./Roadmap.adoc[Roadmap]
 
