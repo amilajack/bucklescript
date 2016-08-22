@@ -13,6 +13,8 @@ Hongbo Zhang <bobzhang1988@gmail.com>
 :transpile-list: https://github.com/jashkenas/coffeescript/wiki/list-of-languages-that-compile-to-js
 :name-mangling: https://en.wikipedia.org/wiki/Name_mangling
 :npm: https://www.npmjs.com
+:sectanchors:
+:sectlinks:
 
 
 BuckleScript is a backend for the {OCaml}[OCaml] compiler which emits
@@ -35,13 +37,13 @@ include::./Installation.adoc[]
 
 include::./Get_started.adoc[]
 
-include::./Integration_with_reason.adoc[]
-
 include::./NPM-Support.adoc[]
 
-include::./JS-call-OCaml.adoc[JS calling OCaml]
+include::./Integration_with_reason.adoc[]
 
-include::./OCaml-call-JS.adoc[OCaml calling JS]
+include::./JS-call-OCaml.adoc[]
+
+include::./OCaml-call-JS.adoc[]
 
 include::./How-to-adapt-your-build-system.adoc[]
 

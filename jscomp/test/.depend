@@ -181,6 +181,8 @@ event_ffi.cmj : ../stdlib/list.cmi ../runtime/js_unsafe.cmj \
     ../runtime/js.cmj
 event_ffi.cmx : ../stdlib/list.cmx ../runtime/js_unsafe.cmx \
     ../runtime/js.cmx
+example_bs_new_date.cmj :
+example_bs_new_date.cmx :
 exception_raise_test.cmj : mt.cmi
 exception_raise_test.cmx : mt.cmx
 exception_value_test.cmj :
@@ -955,6 +957,8 @@ event_ffi.cmo : ../stdlib/list.cmi ../runtime/js_unsafe.cmo \
     ../runtime/js.cmo
 event_ffi.cmj : ../stdlib/list.cmj ../runtime/js_unsafe.cmj \
     ../runtime/js.cmj
+example_bs_new_date.cmo :
+example_bs_new_date.cmj :
 exception_raise_test.cmo : mt.cmi
 exception_raise_test.cmj : mt.cmj
 exception_value_test.cmo :
