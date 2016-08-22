@@ -495,15 +495,24 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#_why_bucklescript">Why BuckleScript</a>
 <ul class="sectlevel2">
-<li><a href="#_the_benefit_of_javascript_platform">The benefit of JavaScript platform</a></li>
-<li><a href="#_problems_of_javascript_langauge_and_how_bucklescript_solves_it">Problems of JavaScript langauge and how BuckleScript solves it</a></li>
+<li><a href="#_benefits_of_javascript_platform">Benefits of JavaScript platform</a></li>
+<li><a href="#_problems_of_javascript_language_and_how_bucklescript_solves_it">Problems of JavaScript language and how BuckleScript solves it</a></li>
+</ul>
+</li>
+<li><a href="#_installation">Installation</a>
+<ul class="sectlevel2">
+<li><a href="#_install_from_npm_releases">Install from NPM releases</a></li>
+<li><a href="#_install_from_source_with_code_npm_code_package_manager">Install from source with <code>npm</code> package manager</a></li>
+<li><a href="#_install_with_minimal_dependencies">Install with minimal dependencies</a></li>
+<li><a href="#_introduction_to_ocaml_ecosystem_opam">Introduction to OCaml ecosystem: OPAM</a></li>
 </ul>
 </li>
 <li><a href="#_get_started">Get Started</a>
 <ul class="sectlevel2">
-<li><a href="#_installation">Installation</a></li>
-<li><a href="#_ocaml_ecosystem_opam">OCaml ecosystem: OPAM</a></li>
-<li><a href="#_first_example_in_bucklescript">First example in BuckleScript</a></li>
+<li><a href="#_first_example">First example</a></li>
+<li><a href="#_an_example_with_multiple_modules">An example with multiple modules</a></li>
+<li><a href="#_create_a_simple_package_to_publish_on_npm">Create a simple package to publish on npm</a></li>
+<li><a href="#_create_your_first_binding">Create your first binding</a></li>
 </ul>
 </li>
 <li><a href="#_bucklescript_basics">BuckleScript Basics</a></li>
@@ -569,6 +578,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p>BuckleScript is a backend for the <a href="https://ocaml.org/">OCaml</a> compiler which emits
+JavaScript. It works with both vanilla OCaml and <a href="https://github.com/facebook/Reason">Reason</a>, the
+whole compiler is compiled into JS (and ASM) so that you can play it
+in the <a href="http://bloomberg.github.io/bucklescript/js-demo/">browser</a>.</p>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -585,19 +600,13 @@ hesitate to <a href="https://github.com/bloomberg/bucklescript/issues">submit an
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>BuckleScript is a backend for the <a href="https://ocaml.org/">OCaml</a> compiler which emits
-JavaScript. It works with both vanilla OCaml and <a href="https://github.com/facebook/Reason">Reason</a>, the
-whole compiler is compiled into JS (and ASM) so that you can play it
-in the <a href="http://bloomberg.github.io/bucklescript/js-demo/">browser</a>.</p>
-</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_why_bucklescript">Why BuckleScript</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_the_benefit_of_javascript_platform">The benefit of JavaScript platform</h3>
+<h3 id="_benefits_of_javascript_platform">Benefits of JavaScript platform</h3>
 <div class="paragraph">
 <p>JavaScript is not just <strong>the</strong> browser language, it&#8217;s also the <strong>only</strong>
 existing cross platform language. It is truly everywhere: users don&#8217;t
@@ -611,7 +620,7 @@ increasingly capable of supporting large applications.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_problems_of_javascript_langauge_and_how_bucklescript_solves_it">Problems of JavaScript langauge and how BuckleScript solves it</h3>
+<h3 id="_problems_of_javascript_language_and_how_bucklescript_solves_it">Problems of JavaScript language and how BuckleScript solves it</h3>
 <div class="paragraph">
 <p>BuckleScript is mainly designed to solve the problems of <strong>large scale JavaScript programming</strong>:</p>
 </div>
@@ -677,8 +686,8 @@ offline <a href="https://github.com/jashkenas/coffeescript/wiki/list-of-language
 <div class="ulist">
 <ul>
 <li>
-<p>Slow compilation: OCaml bytecode compilation is known to be fast
-  (one or two orders of magnitude faster than other similar langauges:
+<p>Slow compilation: OCaml byte-code compilation is known to be fast
+  (one or two orders of magnitude faster than other similar languages:
 <a href="http://www.scala-lang.org/">Scala</a> or
   <a href="https://www.haskell.org/">Haskell</a>),
   BuckleScript shares the same property and compiles even faster
@@ -694,7 +703,7 @@ not human-readable and very difficult to debug and profile.
 Our BuckleScript implementation and the multi-pass compilation  strategy of OCaml,
 allows us to avoid <a href="https://en.wikipedia.org/wiki/Name_mangling">name-mangling</a>,
 and produce JavaScript code that is human-readable and easier to debug and
-maintain. More importantly, this makes intergration with existing JS
+maintain. More importantly, this makes integration with existing JS
 libraries much easier.</p>
 </li>
 <li>
@@ -709,12 +718,10 @@ to one JS module.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_get_started">Get Started</h2>
+<h2 id="_installation">Installation</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_installation">Installation</h3>
-<div class="sect3">
-<h4 id="_install_from_npm_releases">Install from NPM releases</h4>
+<h3 id="_install_from_npm_releases">Install from NPM releases</h3>
 <div class="paragraph">
 <p>The standard npm package management tool can be used to install
 BuckleScript. If you don&#8217;t already have npm installed, follow the
@@ -728,8 +735,8 @@ is installed, run the following command:</p>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_install_from_source_with_code_npm_code_package_manager">Install from source with <code>npm</code> package manager</h4>
+<div class="sect2">
+<h3 id="_install_from_source_with_code_npm_code_package_manager">Install from source with <code>npm</code> package manager</h3>
 <div class="olist arabic">
 <div class="title">Prerequisites:</div>
 <ol class="arabic">
@@ -750,8 +757,8 @@ npm install</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_install_with_minimal_dependencies">Install with minimal dependencies</h4>
+<div class="sect2">
+<h3 id="_install_with_minimal_dependencies">Install with minimal dependencies</h3>
 <div class="olist arabic">
 <div class="title">Prerequisites:</div>
 <ol class="arabic">
@@ -801,9 +808,8 @@ pointing to the stdlib, e.g. <code>BSC_LIB=/path/to/jscomp/stdlib</code> for eas
 of use.</p>
 </div>
 </div>
-</div>
 <div class="sect2">
-<h3 id="_ocaml_ecosystem_opam">OCaml ecosystem: OPAM</h3>
+<h3 id="_introduction_to_ocaml_ecosystem_opam">Introduction to OCaml ecosystem: OPAM</h3>
 <div class="paragraph">
 <p>When working with OCaml we also recommend using <a href="https://opam.ocaml.org">opam</a>
 package manager to install OCaml tools, available
@@ -822,12 +828,197 @@ opam switch 4.02.3
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_first_example_in_bucklescript">First example in BuckleScript</h3>
-<div class="paragraph">
-<p>Also see <a href="./Create-a-simple-example-with-NPM.adoc">Create a simple
-example with npm</a></p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_get_started">Get Started</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_first_example">First example</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Create a directory called <code>hello</code> and create <code>package.json</code>
+as below:</p>
+<div class="listingblock">
+<div class="title">package.json</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="js"><span class="tok-p">{</span>
+    <span class="tok-s2">&quot;dependencies&quot;</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+        <span class="tok-s2">&quot;bs-platform&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;0.9.3&quot;</span> <b class="conum">(1)</b>
+    <span class="tok-p">},</span>
+    <span class="tok-s2">&quot;scripts&quot;</span> <span class="tok-o">:</span> <span class="tok-p">{</span>
+        <span class="tok-s2">&quot;build&quot;</span> <span class="tok-o">:</span> <span class="tok-s2">&quot;bsc -c  main_entry.ml&quot;</span>
+    <span class="tok-p">}</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>Version should be updated accordingly</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Create <code>main_entry.ml</code> as below:</p>
+<div class="listingblock">
+<div class="title">main_entry.ml</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="ocaml"><span class="tok-k">let</span> <span class="tok-bp">()</span> <span class="tok-o">=</span>
+  <span class="tok-n">print_endline</span> <span class="tok-s2">&quot;hello world&quot;</span> <span class="tok-c">(* &lt;1&gt; *)</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Build the app</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="sh">npm run build</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Now you should see a file called <code>main_entry.js</code> generated as below:</p>
+</div>
+<div class="listingblock">
+<div class="title">main_entry.js</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="js"><span class="tok-c1">// GENERATED CODE BY BUCKLESCRIPT VERSION 0.9.3 , PLEASE EDIT WITH CARE</span>
+<span class="tok-s1">&#39;use strict&#39;</span><span class="tok-p">;</span>
+
+
+<span class="tok-nx">console</span><span class="tok-p">.</span><span class="tok-nx">log</span><span class="tok-p">(</span><span class="tok-s2">&quot;hello world&quot;</span><span class="tok-p">);</span>
+
+<span class="tok-cm">/*  Not a pure module */</span> <b class="conum">(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>The compiler analyze this module is impure due to the side effect</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+The working code is available <a href="https://github.com/bloomberg/bucklescript-addons/tree/master/examples/hello">here</a>:
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_an_example_with_multiple_modules">An example with multiple modules</h3>
+<div class="paragraph">
+<p>Now we want to create two modules, one file called <code>fib.ml</code> which
+exports <code>fib</code> function, the other module called <code>main_entry.ml</code> which
+will call <code>fib</code>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Create a directory <code>fib</code> and created a file <code>package.json</code></p>
+<div class="listingblock">
+<div class="title">package.json</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="js"><span class="tok-p">{</span>
+    <span class="tok-s2">&quot;dependencies&quot;</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+        <span class="tok-s2">&quot;bs-platform&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;0.9.4&quot;</span>
+    <span class="tok-p">},</span>
+    <span class="tok-s2">&quot;scripts&quot;</span> <span class="tok-o">:</span> <span class="tok-p">{</span>
+        <span class="tok-s2">&quot;build&quot;</span> <span class="tok-o">:</span> <span class="tok-s2">&quot;bsc -c -bs-main main_entry.ml&quot;</span> <b class="conum">(1)</b>
+    <span class="tok-p">}</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>here <code>-bs-main</code> option tells the compiler compile <code>main_entry</code> module and
+its dependency accordingly</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Create file <code>fib.ml</code> and file <code>main_entry.ml</code></p>
+<div class="listingblock">
+<div class="title">fib.ml</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="ocaml"><span class="tok-k">let</span>  <span class="tok-n">fib</span> <span class="tok-n">n</span>  <span class="tok-o">=</span>
+  <span class="tok-k">let</span> <span class="tok-k">rec</span> <span class="tok-n">aux</span> <span class="tok-n">n</span> <span class="tok-n">a</span> <span class="tok-n">b</span> <span class="tok-o">=</span>
+    <span class="tok-k">if</span> <span class="tok-n">n</span> <span class="tok-o">=</span> <span class="tok-mi">0</span> <span class="tok-k">then</span> <span class="tok-n">a</span>
+    <span class="tok-k">else</span>
+      <span class="tok-n">aux</span> <span class="tok-o">(</span><span class="tok-n">n</span> <span class="tok-o">-</span> <span class="tok-mi">1</span><span class="tok-o">)</span> <span class="tok-n">b</span> <span class="tok-o">(</span><span class="tok-n">a</span><span class="tok-o">+</span><span class="tok-n">b</span><span class="tok-o">)</span>
+  <span class="tok-k">in</span> <span class="tok-n">aux</span> <span class="tok-n">n</span> <span class="tok-mi">1</span> <span class="tok-mi">1</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">main_entry.ml</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="ocaml"><span class="tok-k">let</span> <span class="tok-bp">()</span> <span class="tok-o">=</span>
+  <span class="tok-k">for</span> <span class="tok-n">i</span> <span class="tok-o">=</span> <span class="tok-mi">0</span> <span class="tok-k">to</span> <span class="tok-mi">10</span> <span class="tok-k">do</span>
+    <span class="tok-nn">Js</span><span class="tok-p">.</span><span class="tok-n">log</span> <span class="tok-o">(</span><span class="tok-nn">Fib</span><span class="tok-p">.</span><span class="tok-n">fib</span> <span class="tok-n">i</span><span class="tok-o">)</span> <span class="tok-c">(*  &lt;1&gt; *)</span>
+  <span class="tok-k">done</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p><code>Js</code> module is a built-in module shipped with BuckleScript</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Build the app</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="sh">npm install
+npm run build
+node main_entry.js</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If everything goes well, you should see the output as below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="sh">1
+1
+2
+3
+5
+8
+13
+21
+34
+55
+89</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_a_simple_package_to_publish_on_npm">Create a simple package to publish on npm</h3>
+<div class="paragraph">
+<p>TODO:</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_your_first_binding">Create your first binding</h3>
+
 </div>
 </div>
 </div>
@@ -944,20 +1135,32 @@ to one JS module.</p>
 <p>The offical <a href="https://ocaml.org/">ocaml</a> website has a comprehensive list
 of tutorials about the OCaml language, targeted at both developers new
 to functional programming and type-systems, and developers already
-familiar with these concepts.
-* Playground
-There are two Playgrounds, one for<br>
-<a href="https:////bloomberg.github.io/bucklescript/js-demo">vanilla OCaml</a>,<br>
-the other for<br>
-<a href="https:////bloomberg.github.io/bucklescript/reason-demo">Facebook Reason</a></p>
+familiar with these concepts.</p>
 </div>
 <div class="paragraph">
-<p>Note that the playgrounds are only for demos and might not be the
-latest.<br>
-You should always use the command line as your production tool.
-include::./Create-a-simple-example-with-NPM.adoc[Create a simple example
-with NPM]
-BuckleScript extends the OCaml compiler options with several flags to<br>
+<p>You can play with Reason using the playground
+<a href="https:////bloomberg.github.io/bucklescript/reason-demo">Facebook Reason</a></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="title">The playgrounds are only for demos and might not be the latest</div>
+<div class="paragraph">
+<p>You should always use the command line as your production tool.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>There is a stand alone example <a href="https://github.com/bloomberg/bucklescript-addons/blob/master/examples/reason-demo/package.json">here</a>.</p>
+</div>
+<div class="paragraph">
+<p>BuckleScript extends the OCaml compiler options with several flags to<br>
 provide better experience for NPM users.</p>
 </div>
 <div class="sect2">
@@ -1170,10 +1373,14 @@ bytecode compiler.</p>
 </div>
 <div class="paragraph">
 <p>include::./How-to-adapt-your-build-system.adoc[How to adapt your build
-system]
-include::./Semantic-differences-from-other-backends.adoc[Semantic
-differences from other backends]
-BuckleScript targets <strong>ES5</strong>.</p>
+system]</p>
+</div>
+<div class="paragraph">
+<p>include::./Semantic-differences-from-other-backends.adoc[Semantic
+differences from other backends]</p>
+</div>
+<div class="paragraph">
+<p>BuckleScript targets <strong>ES5</strong>.</p>
 </div>
 <div class="paragraph">
 <p>Below is a list of polyfills from ES6 needed:</p>
@@ -1363,15 +1570,17 @@ want to export those external functions, please write <code>val</code> instead.<
 </li>
 <li>
 <p><code>operators</code> are escaped, since Javascript does not support user<br>
- defined operators. For example instead of calling <code>Pervasives.(^)</code>,<br>
- you have to call <code>Pervasives.$caret</code> from your Javascript functions<br>
- (TODO: document the conversion rules).
-To make OCaml work smoothly with Javascript, we introduced several<br>
+defined operators. For example instead of calling <code>Pervasives.(^)</code>,<br>
+you have to call <code>Pervasives.$caret</code> from your Javascript functions<br>
+(TODO: document the conversion rules).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To make OCaml work smoothly with Javascript, we introduced several<br>
 extensions to the OCaml language. These BuckleScript extensions<br>
 facilitate the integration of native JavaScript code and<br>
 improve the generated code.</p>
-</li>
-</ul>
 </div>
 <div class="paragraph">
 <p>Like TypeScript, when building typesafe bindings from JS to OCaml, the
@@ -3054,7 +3263,7 @@ Array while js_of_ocaml requires its index 0 to be of value 0.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-08-21 10:40:01 EDT
+Last updated 2016-08-22 10:43:53 EDT
 </div>
 </div>
 </body>
