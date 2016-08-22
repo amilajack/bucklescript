@@ -47,30 +47,16 @@ include::./OCaml-call-JS.adoc[]
 
 include::./How-to-adapt-your-build-system.adoc[]
 
-include::./FAQ.adoc[FAQ]
+include::./FAQ.adoc[]
 
-include::./Compiler-options.adoc[Compiler options]
+include::./Compiler-options.adoc[]
 
 include::./Semantic-differences-from-other-backends.adoc[]
-
-
-
 
 include::./Compiler-overview.adoc[]
 
 include::./Runtime-representation.adoc[]
 
-include::./Experimental-support-of-typescript.adoc[]
+include::./Dev-mode-How-to.adoc[]
 
-include::./Unsupported-IO-primitives.adoc[]
-
-* Contributions
-include::./Dev-mode-How-to.adoc[Dev mode How to]
-include::./Help-move-runtime-functions-from-OCaml-to-Javascript.adoc[Help
-move runtime functions from OCaml to Javascript]
-
-* Roadmap
-include::./Roadmap.adoc[Roadmap]
-
-* Comparisons
-include::./Differences-from-js_of_ocaml.adoc[Differences from js_of_ocaml]
+include::./Differences-from-js_of_ocaml.adoc[]

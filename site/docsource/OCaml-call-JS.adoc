@@ -84,9 +84,10 @@ let dom = dom
 ----------
 Output:
 [source,js]
-=====
+----------
 var dom = document
-=====
+----------
+
 
 #### `bs.send`
 
@@ -830,16 +831,15 @@ Polyfill of `Math.imul`
    |}]
 -------------------------------------
 
-Caveats:
-
+[WARNING]
+==========
 * So far we don't perform any sanity checks in the quoted text (syntax
 checking is a long-term goal).
 * Users should not refer to symbols in OCaml code. It is not guaranteed
 that the order is correct.
+==========
 
-[[debugger-support]]
-Debugger support
-~~~~~~~~~~~~~~~~
+### Debugger support
 
 We introduced the extension `bs.debugger`, for example:
 
@@ -861,12 +861,13 @@ which will be compiled into:
   }
 ---------------------------------------------------------------------------------
 
-[[regex-support]]
-Regex support
-~~~~~~~~~~~~~
 
-We introduced `bs.re` for Javascript regex expresion:
+### Regex support
 
+
+We introduced `bs.re` for Javascript regex expression:
+
+[source,ocaml]
 ------------------------
 let f  = [%bs.re "/b/g"]
 ------------------------
@@ -878,14 +879,14 @@ below
 var f = /b/g
 ------------
 
-____________________________________________________________________________________
-Note that `Js_re.t` is an abstract type, we are working on providing
-bindings for it
-____________________________________________________________________________________
 
-[[examples]]
-Examples:
-~~~~~~~~~
+NOTE:  `Js_re.t` is an abstract type, we are working on providing
+bindings for it.
+
+
+
+### Examples
+
 
 Below is a simple example for https://mochajs.org/[mocha] library. For
 more examples, please visit

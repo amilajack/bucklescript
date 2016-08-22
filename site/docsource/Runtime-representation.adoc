@@ -1,286 +1,153 @@
+
+## Runtime representation
+
 Below is a description of how OCaml values are encoded in JavaScript, +
 the *internal* description means **users should not rely on its actual +
 encoding (and it is subject to change)**. We recommend that you write
-setter/getter functions +
-to manipulate safely OCaml values from JavaScript.
+setter/getter functions to manipulate safely OCaml values from JavaScript.
 
 For example, users should not rely on how OCaml `list` is encoded in
-JavaScript; instead, +
-the OCaml stdlib provides three functions: `List.cons`, `List.hd` and
-`List.tl`. JavaScript +
-code should only rely on those three functions.
+JavaScript; instead, the OCaml stdlib provides three functions: `List.cons`, `List.hd` and
+`List.tl`. JavaScript code should only rely on those three functions.
 
-[[ocaml-type]]
-OCaml type
-----------
 
-[[int]]
-int
-~~~
+### Simple OCaml type
 
-* JavaScript type : number
+[options="header"]
+|==============
+| ocaml type | JavaScrit type
 
-[[nativeint]]
-nativeint
-~~~~~~~~~
+| int | number
+| nativeint | number
+| int32 | number
+| float | number
+| bool  a| number
 
-* JavaScript type : number
+- true -> 1
+- false -> 0
 
-[[int32]]
-int32
-~~~~~
+| int64 | Array of size two numbers `[hi,lo]`. `hi` is signed while `lo` is unsigned
 
-* JavaScript type : number
+| char a| number
 
-[[int64]]
-int64
-~~~~~
+for example:
 
-* JavaScript type : an array of two numbers
+- 'a' -> `97`
+| string | string
+| bytes  a| number array
 
-[[float]]
-float
-~~~~~
+NOTE: We might encode it as buffer  in NodeJS.
 
-* JavaScript type : number
+| 'a array | Array
+| record   a| Array *internal*
 
-[[bool]]
-bool
-~~~~
-
-* true -> 1
-* false -> 0
-
-[[char]]
-char
-~~~~
-
-* JavaScript type : number +
- for example, `'a'` is encoded as its ascii code `97`
-
-[[string]]
-string
-~~~~~~
-
-* JavaScript type : string
-
-[[bytes]]
-bytes
-~~~~~
-
-* JavaScript type : Number Array
-
-_______________________________________________________________
-TODO: investigate if we can encode it as buffer when in NodeJS.
-_______________________________________________________________
-
-[[array]]
-array
-~~~~~
-
-* JavaScript type : Array.
-
-[[record-internal]]
-record _internal_
-~~~~~~~~~~~~~~~~~
-
-* javascript type: object +
- For instance: 
-
+For instance:
 [source,ocaml]
 --------------
- type t = { x : int; y : int }  
- let v = {x = 1;  y = 2} 
--------------- 
-`v` is encoded as `[1,2]
+type t = { x : int; y : int }
+let v = {x = 1;  y = 2}
+--------------
+Output:
+[source,js]
+------
+var v = [1,2]
+------
 
-[[tuple]]
-tuple
-~~~~~
+| tuple    a| Array
 
-* JavaScript type: Array +
- for example, `(a,b)` is encoded as `[a,b]`
+For example:
 
-[[a-option-internal]]
-`'a option` _internal_
-~~~~~~~~~~~~~~~~~~~~~~
+* (3,4) -> [3,4]
+
+| ``'a option` a|  *internal*
+
+For example:
 
 * `None` -> `0`
 * `Some a` -> `[a]`
 
-[[a-list-internal]]
-`'a list` _internal_
-~~~~~~~~~~~~~~~~~~~~
+| list a| *internal*
+
+For example:
 
 * `[]` -> `0`
 * `x::y` -> `[x,y]`
+| Variant | *internal*
 
-[[variant-internal]]
-Variant _internal_
-~~~~~~~~~~~~~~~~~~
+| Polymorphic variant | *internal*
 
-* javascript type: object (for non nullary constructor)
-* javascript type: number (for nullary constructor) +
+| exception |  *internal*
+| extension | *internal*
+
+| object | *internal*
+| `Js.boolean` a| boolean
+
+For example:
+
+* Js.true_ -> true
+* Js.false_ -> false
 
 [source,ocaml]
+.Js module
+-----
+val Js.to_bool: Js.boolean -> bool
+-----
+
+| `'a Js.Null.t` a| either `'a` or `null`
+
+[source,ocaml]
+.Js.Null module
 --------------
-type t =       
-  | A      
-  | B of int * int     
-  | C of int * int     
-  | D
+val to_opt : 'a t -> 'a option
+
+val return : 'a -> 'a t
+
+val test : 'a t -> bool
 --------------
 
-Here `A` is encoded as `0`, `D` is encoded as `1`. +
- `B (1,2)` is encoded as `[1,2]` with property `tag` which is `0` +
- you can imagine it is encoded as
+| `'a Js.Undefined.t` a| either `'a` or `undefined`
 
-[source,js]
------------
-Object.defineProperty([1,2], 'tag', { 'value' : 0 })
------------
-`C (1,2)` is encoded as below
+[source,ocaml]
+.Js.Undefined
+--------------
+val to_opt : 'a t -> 'a option
+val return : 'a -> 'a t
+val test : 'a t -> bool
+--------------
 
-[source,js]
------------
-Object.defineProperty([1,2], 'tag', { 'value' : 1 })`
------------
+|`'a Js.Null_undefined.t` a| either `'a`, `null` or `undef`
+|==============
+
+NOTE: `Js.to_opt` is optimized when the `option` is not escaped
+
+NOTE: In the future, we will have a _debug_ mode, in which the
+corresponding js encoding will be instrumented with more information
 
 As we clarified before, the internal representation should not be relied
-upon, for example, +
- we might change the name of `tag` in the future.
-
+upon.
 We are working to provide a ppx extension as below:
 
 [source,ocaml]
 --------------
-type t =         
-  | A         
-  | B of int * int       
-  | C of int * int          
-  | D [@@bs.export]
+type t =
+  | A
+  | B of int * int
+  | C of int * int
+  | D [@@bs.deriving{export}]
 --------------
 
 So that it will a automatically provide `constructing` and
-`destructing` function
+`destructing` functions:
 
 [source,ocaml]
 ---------
-val a : t 
-val b : int -> int -> t 
-val c : int -> int -> t 
+val a : t
+val b : int -> int -> t
+val c : int -> int -> t
 val d : int
 
-val a_of_t : t -> bool 
-val d_of_t : t -> bool 
-val b_of_t : t -> (int * int ) Js.opt 
-val c_of_t : t -> (int * int ) Js.opt 
---------- 
-
-[[polymorphic-variant-internal]]
-Polymorphic variant _internal_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-* javascript type: number (nullary constructor)
-* javascript type: object (non-nullary constructor)
-
-[source,ocaml]
---------------
-type t =          
-    | `A       
-    | `B of int * int        
-    | `C of int       
-    | `D [@@bb.export] 
---------------
-
-For nullary constructor, *\`A*, it is encoded as a hash function,
-**users should not rely  on how the hash function works**. 
- For documentation purpose, *\`A* is encoded as number `65`
-
-*\`B(1,2)* is encoded as `[66, [1,2] ]`
-
-*\`C 3* is encoded as `[67, 3]`
-
-[[exception-internal]]
-exception _internal_
-~~~~~~~~~~~~~~~~~~~~
-
-[[extension-internal]]
-extension _internal_
-~~~~~~~~~~~~~~~~~~~~
-
-[[object-internal]]
-object _internal_
-~~~~~~~~~~~~~~~~~
-
-[[javascript-type-exposed-to-ocaml]]
-JavaScript type exposed to OCaml
---------------------------------
-
-BuckleScript exposes type safe interfaces to JavaScript native types.
-Those can be found in the `Js` module.
-
-[[js.boolean]]
-`Js.boolean`
-~~~~~~~~~~~~
-
-* javascript type: boolean +
-* Js.true_ -> true
-* Js.false_ -> false +
- We also provide a function `Js.to_bool` to convert `Js.boolean` to
-OCaml `bool`
-
-[source,ocaml]
---------------
-val to_bool : Js.boolean -> bool
---------------
-
-[[a-js.opt]]
-`'a Js.opt`
-~~~~~~~~~~~
-
-* either `'a` or `null` +
- We provide several functions in `Js` module for constructing and
-destructing:
-
-[source,ocaml]
---------------
-val from_opt : 'a opt -> 'a option   
-val to_opt : 'a -> 'a opt  
-val is_nil : 'a opt -> bool
---------------
-
-It's more efficient than `'a option` since it is unboxed. When the user wants to get the value, he can write code as below:
-
-[source,ocaml]
---------------
- match Js.from_opt x with 
- | Some x ->        (* non null branch *)    
-   begin       (* ... *)        end  
- | None ->       (* null *)      
-   begin       (* ... *)        end
---------------
-
-Note that `Js.from_opt` is in generally optimized, so that it will not be boxed when converted to `'a option` and destructured
-immediately.
-
-[[a-js.def]]
-`'a Js.def`
-~~~~~~~~~~~
-
-* either `'a'` or `undefined`
-
-We provide several functions in `Js` module for constructing and
-destructing:
-
-[source,ocaml]
---------------
-val from_def : 'a def -> 'a option   
-val to_def : 'a -> 'a opt   
-val is_undef : 'a def -> bool
---------------
-__________________________________________________________________________________________________
-Note in the future, we will have a _debug_ mode, in which the +
-corresponding js encoding will be instrumented with more information
-using `Object.defineProperty`
-__________________________________________________________________________________________________
+val a_of_t : t -> bool
+val d_of_t : t -> bool
+val b_of_t : t -> (int * int ) Js.Null.t
+val c_of_t : t -> (int * int ) Js.Null.t
+---------
